@@ -1,0 +1,76 @@
+swagger: '2.0'
+info:
+  version: 'v1'
+  title: 'SaveCompany'
+  description: Stores Company Details for E stock Market
+  contact:
+    name: Akshay Shah
+host: 'localhost:8080'
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /v1.0/market/company/register:
+    post:
+      description: 'POST endpoint: Save Company Details'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 'Sample response: Returns true if Data is saved'
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/CompanyResponse'
+definitions:
+ CompanyRequest:
+    type: object
+    required:
+      - code
+      - name
+      - ceo
+      - turnover
+      - website
+      - exchange
+    properties:
+      code:
+        type: string
+        format: int64
+      name:
+        type: string
+      ceo:
+        type: string
+      turnover:
+        type: integer
+        format: int64
+      website:
+        type: string
+      exchange:
+        type: string
+ CompanyResponse:
+    type: object
+    properties:
+      successIndicator:
+        type: boolean
+      errorMessages:
+        type: array
+        items:
+          $ref: '#/definitions/ErrorMessage'
+ ErrorMessage:
+    type: object
+    properties:
+      errorCode:
+        type: string
+      errorDef:
+        type: string
+securityDefinitions:
+  basicAuth:
+    type: basic
+security:
+  - basicAuth: []
