@@ -46,6 +46,12 @@ jobs:
       run : chmod +x ./gradlew
     - name: clean and Run Jaccoo
       run :  ./gradlew clean build jacocoTestReport
+    - name: Cache Gradle packages
+      uses: actions/cache@v1
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+        restore-keys: ${{ runner.os }}-gradle
     - name: Build  and analyze with Gradle
       env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
