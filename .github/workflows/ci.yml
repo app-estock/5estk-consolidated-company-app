@@ -44,6 +44,8 @@ jobs:
         restore-keys: ${{ runner.os }}-gradle
     - name: Make gradlew executable
       run : chmod +x ./gradlew
+    - name: clean and Run Jaccoo
+      run :  ./gradlew clean build jacocoTestReport
     - name: Build  and analyze with Gradle
       env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
