@@ -33,9 +33,9 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: <logPath>/test.log
 
-
-  sonar:
-    projectKey: 5estk-consolidated-company-app
-    host:
-       url: http://localhost:9000
-    login: 1fddb39f8a6c9ffd12347e0a5e15bc3571ce4477
+sonar:
+  projectKey: 5estk-consolidated-company-app
+   host:
+      url: http://localhost:9000
+  login: admin
+  password: Maxak351#
