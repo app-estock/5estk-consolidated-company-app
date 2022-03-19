@@ -36,10 +36,6 @@ jobs:
       uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
       with:
         arguments: build
-    - name: Publish to Github Packages
-      uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
-      with:
-        arguments: publish
     - name: Cache SonarQube packages
       uses: actions/cache@v1
       with:
