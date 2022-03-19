@@ -24,7 +24,7 @@ public class DeleteStocksServiceImpl implements DeleteStocksService {
     public boolean deleteStockService(String companycode, Headers headers) throws DeleteStockServiceException {
         transactionLog = new TransactionLog("DeleteCompanyV1", "deleteCompanyV1", "extCall");
         Map<String, String> extendedProperties = new HashMap<>();
-        String updateStockServiceV1Endpoint="http://localhost:8081/deleteStocksV1/delete/"+companycode;
+        String updateStockServiceV1Endpoint="http://localhost:8081/StockV1/delete/"+companycode;
         //region transaction log population
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
