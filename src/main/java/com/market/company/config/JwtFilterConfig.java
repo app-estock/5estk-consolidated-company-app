@@ -20,7 +20,7 @@ import java.util.Base64;
 
 public class JwtFilterConfig extends GenericFilterBean{
 @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 
         final HttpServletRequest request =  (HttpServletRequest)req;
         final HttpServletResponse response = (HttpServletResponse) res;

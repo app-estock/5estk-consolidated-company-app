@@ -2,8 +2,14 @@ plugins {
     id 'org.springframework.boot' version '2.5.10'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "org.sonarqube" version "3.3"
 }
 
+sonarqube {
+    properties {
+        property "sonar.projectKey", "5estk-consolidated-company-app"
+    }
+}
 
 apply from: "$rootDir/gradle/dependencies.gradle"
 
