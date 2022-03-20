@@ -1,11 +1,7 @@
 package com.market.company.controller;
 
 
-import com.market.company.api.CompanyRequest;
-import com.market.company.api.CompanyResponse;
-import com.market.company.api.ErrorMessage;
-import com.market.company.api.StockRequest;
-import com.market.company.api.CompanyResponseListData;
+import com.market.company.api.*;
 import com.market.company.common.AppConstants;
 import com.market.company.common.CommonUtility;
 import com.market.company.common.faulthandler.FaultCode;
@@ -382,7 +378,60 @@ public class CompanyController {
         }
     }
 
+    @GetMapping(value = "/api/v1.0/market/company/info/{companycode}", produces = {"application/json"})
+    public ResponseEntity searchCompanyV1(@RequestHeader Map<String,String> requestHeaders, @PathVariable("companycode") final String companyCode, Error error) {
+        CompanyResponseData responsedata = null;
+        CompanyResponse response=null;
+        Map<String, String> responseHeaders = null;
+        Headers headers = null;
+        HttpHeaders respHeaders = new HttpHeaders();
+        List<ErrorMessage> estkErrorList = new ArrayList<>();
+        transactionLog = new TransactionLog("SearchCompanyV1", "searchCompanyV1", "Controller");
+        try {
+            if (CompanyValidator.areHeadersValid(requestHeaders)) {
+                headers = mapHeaders(requestHeaders);
+                responseHeaders = mapHeadersToObject(requestHeaders);
+                respHeaders.setAll(responseHeaders);
 
+                //region transaction log population
+                String methodName = new Object() {
+                }.getClass().getEnclosingMethod().getName();
+                transactionLog.setMethodName(methodName);
+                transactionLog.setRequestLog("companycode" + companyCode);
+                transactionLog.setErrorcode("NONE");
+                transactionLog.setTransactionId(headers.getEstk_transactionID());
+                transactionLog.setMessageId(headers.getEstk_messageID());
+                transactionLog.setSessionId(headers.getEstk_sessionID());
+                transactionLog.setCreationTimeStamp(headers.getEstk_creationtimestamp());
+                //endregion
+
+                if (companyCode != null) {
+                    responsedata = searchCompanyService.processRequest(companyCode,headers);
+                } else {
+                    response = mapEmptyInvalidRequest(estkErrorList);
+                    ResponseEntity.badRequest().headers(respHeaders).body(response);
+                    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+                }
+            }
+            else{
+                ErrorMessage errorMessage= new ErrorMessage();
+                errorMessage.setErrorDef("Headers Mismatch");
+
+                transactionLog.setStatus(AppConstants.FAIL);
+                logger.error(transactionLog.toString());
+                return ResponseEntity.badRequest().headers(respHeaders).body(errorMessage);
+            }
+
+            return new ResponseEntity<>(responsedata, HttpStatus.OK);
+
+
+        } catch (Exception e) {
+            response = mapInternalServerException(e, estkErrorList);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
 
 
 
