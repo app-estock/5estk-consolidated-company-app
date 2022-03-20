@@ -4,7 +4,7 @@ import com.market.company.common.AppConstants;
 import com.market.company.common.headers.Headers;
 import com.market.company.common.logging.TransactionLog;
 import com.market.company.exception.DeleteStockServiceException;
-import com.market.company.kafka.Producer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ import java.util.Map;
 
 @Component
 public class DeleteStocksServiceImpl implements DeleteStocksService {
-    @Autowired
-    private Producer producer;
+   // @Autowired
+   // private Producer producer;
     private static final Logger logger = LoggerFactory.getLogger(DeleteStocksServiceImpl.class);
     private TransactionLog transactionLog;
     @Override
@@ -52,7 +52,7 @@ public class DeleteStocksServiceImpl implements DeleteStocksService {
             //log
             transactionLog.setExtendedProperties(extendedProperties);
             logger.info(transactionLog.toString());
-            producer.sendMessage(transactionLog.toString());
+           // producer.sendMessage(transactionLog.toString());
         }
     }
 }

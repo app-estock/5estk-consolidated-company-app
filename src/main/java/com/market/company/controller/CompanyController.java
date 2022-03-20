@@ -21,7 +21,7 @@ import com.market.company.service.DeleteCompanyService;
 import com.market.company.service.ListCompanyService;
 import com.market.company.service.SearchCompanyService;
 import com.market.company.domain.mapper.StockMapper;
-import com.market.company.kafka.Producer;
+;
 import com.market.company.service.UpdateCompanyStockPriceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,11 +57,11 @@ public class CompanyController {
     private SearchCompanyService searchCompanyService;
 
     private TransactionLog transactionLog;
-    private final Producer producer;
-    @Autowired
-    CompanyController(Producer producer) {
-        this.producer = producer;
-    }
+    //private final Producer producer;
+    //@Autowired
+    //CompanyController(Producer producer) {
+    //    this.producer = producer;
+    //}
     //endRegion
 
     //region Implementation method
@@ -226,7 +226,7 @@ public class CompanyController {
             return ResponseEntity.internalServerError().headers(respHeaders).body(response);
         }
         finally{
-            this.producer.sendMessage(transactionLog.toString());
+            //this.producer.sendMessage(transactionLog.toString());
         }
 
     }
@@ -295,7 +295,7 @@ public class CompanyController {
             return ResponseEntity.badRequest().headers(respHeaders).body(responsebody);
         }
         finally {
-            this.producer.sendMessage(transactionLog.toString());
+            //this.producer.sendMessage(transactionLog.toString());
         }
 
 

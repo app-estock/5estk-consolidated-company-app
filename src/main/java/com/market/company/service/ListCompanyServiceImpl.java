@@ -8,7 +8,7 @@ import com.market.company.common.headers.Headers;
 import com.market.company.common.logging.TransactionLog;
 import com.market.company.dao.ListCompanyDao;
 import com.market.company.domain.CompanyDetails;
-import com.market.company.kafka.Producer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ public class ListCompanyServiceImpl implements ListCompanyService {
 
     @Autowired
     private ListCompanyDao listCompanyDao;
-    @Autowired
-    private Producer producer;
+   // @Autowired
+   // private Producer producer;
     private List<ErrorMessage> estkErrorList;
     private static final Logger logger = LoggerFactory.getLogger(ListCompanyServiceImpl.class);
     private TransactionLog transactionLog;
@@ -98,7 +98,7 @@ public class ListCompanyServiceImpl implements ListCompanyService {
             transactionLog.setResponseLog(response.toString());
             transactionLog.setExtendedProperties(extendedProperties);
             logger.info(transactionLog.toString());
-            producer.sendMessage(transactionLog.toString());
+            //producer.sendMessage(transactionLog.toString());
         }
         return response;
     }
