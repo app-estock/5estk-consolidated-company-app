@@ -6,7 +6,7 @@ import com.market.company.common.headers.Headers;
 import com.market.company.common.logging.TransactionLog;
 import com.market.company.domain.CompanyDetails;
 import com.market.company.domain.mapper.CompanyDetailsListMapper;
-import com.market.company.kafka.Producer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ public class ListCompanyDaoImpl implements ListCompanyDao{
     private JdbcTemplate jdbcTemplate;
     private static final Logger logger = LoggerFactory.getLogger(ListCompanyDaoImpl.class);
     private TransactionLog transactionLog;
-    @Autowired
-    private Producer producer;
+   // @Autowired
+  //  private Producer producer;
 
     @Override
     public List<CompanyDetails> listAllCompanyDetails(Headers requestHeaders) {
@@ -61,7 +61,7 @@ public class ListCompanyDaoImpl implements ListCompanyDao{
         finally {
             transactionLog.setExtendedProperties(extendedProperties);
             logger.info(transactionLog.toString());
-            producer.sendMessage(transactionLog.toString());
+        //    producer.sendMessage(transactionLog.toString());
         }
         return companyDetailsList;
     }

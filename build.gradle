@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.10'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "jacoco"
     id "org.sonarqube" version "3.3"
 }
 
@@ -36,6 +37,7 @@ dependencies {
     implementation 'org.springframework.kafka:spring-kafka:2.8.3'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 
 }
 
@@ -56,4 +58,10 @@ bootJar {
 
 jar {
     enabled = true
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }

@@ -12,18 +12,18 @@ spring:
 
 management:
   endpoint:
-    info:
-      enabled: true
-    bean:
-      enabled: true
-    env:
-      enabled: true
-  port: 8080
+        info:
+           enabled: true
+        bean:
+           enabled: true
+        env:
+           enabled: true
+  port: 8082
   security:
       enabled: true
 
 server:
-  port: 8080
+  port: 8082
 
 logging:
   level:
@@ -32,10 +32,3 @@ logging:
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file: <logPath>/test.log
-
-
-  sonar:
-    projectKey: 5estk-consolidated-company-app
-    host:
-       url: http://localhost:9000
-    login: 1fddb39f8a6c9ffd12347e0a5e15bc3571ce4477

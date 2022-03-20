@@ -6,7 +6,7 @@ import com.market.company.common.AppConstants;
 import com.market.company.common.CommonUtility;
 import com.market.company.common.faulthandler.FaultCode;
 import com.market.company.common.headers.Headers;
-import com.market.company.kafka.Producer;
+
 import com.market.company.common.logging.TransactionLog;
 import com.market.company.dao.DeleteCompanyDao;
 import com.market.company.dao.sac.DeleteStocksService;
@@ -24,8 +24,8 @@ import java.util.Map;
 
 @Service
 public class DeleteCompanyServiceImpl implements DeleteCompanyService {
-    @Autowired
-    private Producer producer;
+    //@Autowired
+   // private Producer producer;
     @Autowired
     private DeleteCompanyDao deleteCompanyDao;
     @Autowired
@@ -82,7 +82,7 @@ public class DeleteCompanyServiceImpl implements DeleteCompanyService {
             transactionLog.setResponseLog(response.toString());
             transactionLog.setExtendedProperties(extendedProperties);
             logger.info(transactionLog.toString());
-            producer.sendMessage(transactionLog.toString());
+      //      producer.sendMessage(transactionLog.toString());
         }
         return response;
     }
