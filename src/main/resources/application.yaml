@@ -5,6 +5,7 @@ spring:
     username: root
     password: Maxak351#
     url: jdbc:mysql://localhost:3306/stockmarket
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update

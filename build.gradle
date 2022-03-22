@@ -52,7 +52,7 @@ bootRun.configure {
 
 
 bootJar {
-    mainClass = 'com.market.savecompany.SaveCompanyApplication'
+    mainClass = 'com.market.company.CompanyApplication'
     enabled = true
 }
 
