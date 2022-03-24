@@ -17,7 +17,7 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import com.market.company.kafka.Producer;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +29,7 @@ class CompanyServiceImpTest {
 
     SaveCompanyServiceImp saveCompanyServiceImp;
     SaveCompanyService saveCompanyService;
-    Producer producer;
+
     CompanyResponse companyResponse;
 
     TransactionLog transactionLog;
@@ -39,7 +39,7 @@ class CompanyServiceImpTest {
     void setUp() {
         saveCompanyServiceImp= mock(SaveCompanyServiceImp.class);
         saveCompanyService=mock(SaveCompanyServiceImp.class);
-        producer= mock(Producer.class);
+
 
          transactionLog=mock(TransactionLog.class);
 

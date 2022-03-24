@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.market.company.kafka.Producer;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -19,14 +19,13 @@ SaveCompanyDaoImp saveCompanyDaoImp;
 @Autowired
 CompanyRepository companyRepository;
 TransactionLog transactionLog;
-@Autowired
-Producer producer;
+
     @BeforeEach
     void setUp() {
         saveCompanyDaoImp= mock(SaveCompanyDaoImp.class);
         companyRepository=mock(CompanyRepository.class);
         transactionLog=mock(TransactionLog.class);
-        producer=mock(Producer.class);
+
     }
 
     @AfterEach
