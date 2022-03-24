@@ -19,7 +19,7 @@ on:
      - main
 jobs:
   build:
-    name: Build image
+    name: Build and test
     runs-on: ubuntu-latest
 
     steps:
