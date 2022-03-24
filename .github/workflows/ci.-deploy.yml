@@ -10,13 +10,10 @@ name: deploy to production
 on:
   push:
     branches: 
-      - develop
-      - main
       - 'release/**'
-  pull_request:
-    branches: 
-     - develop
-     - 'release/**'
+  create:
+     branches:
+      - 'release/**'
 
 jobs:
   build:
