@@ -7,7 +7,7 @@ import com.market.company.exception.DeleteStockServiceException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,15 +16,18 @@ import java.util.Map;
 
 @Component
 public class DeleteStocksServiceImpl implements DeleteStocksService {
-   // @Autowired
-   // private Producer producer;
+
     private static final Logger logger = LoggerFactory.getLogger(DeleteStocksServiceImpl.class);
     private TransactionLog transactionLog;
+    @Value("${HOSTNAME:localhost}")
+    private String hostname;
+    @Value("${PORT:8081}")
+    private String port;
     @Override
     public boolean deleteStockService(String companycode, Headers headers) throws DeleteStockServiceException {
         transactionLog = new TransactionLog("DeleteCompanyV1", "deleteCompanyV1", "extCall");
         Map<String, String> extendedProperties = new HashMap<>();
-        String updateStockServiceV1Endpoint="http://localhost:8081/StockV1/delete/"+companycode;
+        String updateStockServiceV1Endpoint="http://"+hostname+":"+port+"/StockV1/delete/"+companycode;
         //region transaction log population
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
@@ -52,7 +55,7 @@ public class DeleteStocksServiceImpl implements DeleteStocksService {
             //log
             transactionLog.setExtendedProperties(extendedProperties);
             logger.info(transactionLog.toString());
-           // producer.sendMessage(transactionLog.toString());
+
         }
     }
 }
