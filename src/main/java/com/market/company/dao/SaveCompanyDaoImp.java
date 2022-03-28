@@ -49,7 +49,7 @@ public class SaveCompanyDaoImp implements SaveCompanyDao {
         //endregion
 
         try {
-            CompanyDetails cd=companyRepository.findByCompanyCode(companyDetails.getCompanyCode());
+            CompanyDetails cd=companyRepository.findCompanyByCompanyCode(companyDetails.getCompanyCode());
             if (cd!=null) {
                 recordSaved = false;
                 extendedProperties.put("recordSaved", "false");

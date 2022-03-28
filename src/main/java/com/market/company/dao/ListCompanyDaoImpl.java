@@ -20,7 +20,7 @@ import java.util.Map;
 @Component
 public class ListCompanyDaoImpl implements ListCompanyDao{
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private  CompanyRepository companyRepository;
     private static final Logger logger = LoggerFactory.getLogger(ListCompanyDaoImpl.class);
     private TransactionLog transactionLog;
    // @Autowired
@@ -46,7 +46,8 @@ public class ListCompanyDaoImpl implements ListCompanyDao{
         //endregion
 
         try{
-              companyDetailsList=jdbcTemplate.query(AppConstants.LIST_ALL_COMPANY_DETAILS,new CompanyDetailsListMapper());
+             // companyDetailsList=jdbcTemplate.query(AppConstants.LIST_ALL_COMPANY_DETAILS,new CompanyDetailsListMapper());
+            companyDetailsList=companyRepository.findAll();
 
               if(!CommonUtility.isListEmpty(companyDetailsList)){
                   extendedProperties.put("Returned Data",companyDetailsList.toString());
@@ -84,8 +85,8 @@ public class ListCompanyDaoImpl implements ListCompanyDao{
         //endregion
 
         try{
-            companyDetailsList=jdbcTemplate.query(AppConstants.LIST_COMPANY_DETAILS_BY_USER,new CompanyDetailsListMapper(),userId);
-
+            //companyDetailsList=jdbcTemplate.query(AppConstants.LIST_COMPANY_DETAILS_BY_USER,new CompanyDetailsListMapper(),userId);
+            companyDetailsList=companyRepository.findAllCompanyByUserId(userId);
             if(!CommonUtility.isListEmpty(companyDetailsList)){
                 extendedProperties.put("Returned Data",companyDetailsList.toString());
                 transactionLog.setStatus(AppConstants.SUCCESS);

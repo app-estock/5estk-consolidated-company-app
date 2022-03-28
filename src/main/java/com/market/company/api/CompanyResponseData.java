@@ -38,7 +38,7 @@ public class CompanyResponseData {
         this.companyTurnOver = companyTurnOver;
         this.companyWebsite = companyWebsite;
         this.stockExchangeType = stockExchangeType;
-        this.stockPrice=stockPrice;
+        this.stockPrice=stockPrice==null?0.0:stockPrice;
     }
 
     public String getCompanyCode() {

@@ -13,7 +13,7 @@ public class UpdateCompanyStockPriceServiceImpl implements UpdateCompanyStockPri
     private CompanyRepository companyRepository;
     @Override
     public CompanyResponse processRequest(StockMapper stockMapper) {
-      CompanyDetails company =companyRepository.findByCompanyCode(stockMapper.getCode());
+      CompanyDetails company =companyRepository.findCompanyByCompanyCode(stockMapper.getCode());
       if(company!=null)
       {
           company.setLatestStockPrice(stockMapper.getStockPrice());

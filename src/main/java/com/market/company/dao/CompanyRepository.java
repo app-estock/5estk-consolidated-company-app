@@ -9,5 +9,8 @@ import java.util.List;
 public interface CompanyRepository extends JpaRepository<CompanyDetails,String> {
 
 
-    CompanyDetails findByCompanyCode(String code);
+    CompanyDetails findCompanyByCompanyCode(String code);
+    List<CompanyDetails> findAllCompanyByCompanyCode(String code);
+    List<CompanyDetails> findAllCompanyByUserId(String userid);
+    Long deleteByCompanyCode(String code);
 }

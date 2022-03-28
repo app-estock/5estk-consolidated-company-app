@@ -3,6 +3,7 @@ package com.market.company.dao;
 import com.market.company.common.AppConstants;
 import com.market.company.common.headers.Headers;
 import com.market.company.common.logging.TransactionLog;
+import com.market.company.domain.CompanyDetails;
 import com.market.company.exception.NoDataFoundException;
 
 import org.slf4j.Logger;
@@ -18,14 +19,15 @@ import java.util.Map;
 public class DeleteCompanyDaoImp implements DeleteCompanyDao {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    CompanyRepository companyRepository;
     private static final Logger logger = LoggerFactory.getLogger(DeleteCompanyDaoImp.class);
     private TransactionLog transactionLog;
 
     @Override
     public boolean deleteCompanyDetails(String companyCode, Headers headers) throws NoDataFoundException {
         boolean recordDeleted = false;
-        int result;
+        CompanyDetails companyDetails;
+
         transactionLog = new TransactionLog("DeleteCompanyV1", "deleteCompanyV1", "Database");
         Map<String, String> extendedProperties = new HashMap<>();
 
@@ -45,18 +47,25 @@ public class DeleteCompanyDaoImp implements DeleteCompanyDao {
         //endregion
 
         try {
-            result = jdbcTemplate.update(AppConstants.DELETE_COMPANY_DETAILS, companyCode);
-            if (result == 1) {
+            companyDetails=companyRepository.findCompanyByCompanyCode(companyCode);
+            if(companyDetails.getCompanyCode()!=null) {
+
+                 companyRepository.delete(companyDetails);
+
+
+
                 transactionLog.setStatus(AppConstants.SUCCESS);
                 recordDeleted=true;
 
-
             }
-            else {
+            else
+            {
                 transactionLog.setStatus(AppConstants.FAIL);
                 recordDeleted=false;
-
             }
+
+
+
             extendedProperties.put("recordDeleted", recordDeleted ?"yes":"no");
         }
         catch (Exception e) {
@@ -66,7 +75,7 @@ public class DeleteCompanyDaoImp implements DeleteCompanyDao {
         finally{
             transactionLog.setExtendedProperties(extendedProperties);
             logger.info(transactionLog.toString());
-         //   producer.sendMessage(transactionLog.toString());
+
         }
 
 

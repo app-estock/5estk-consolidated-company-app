@@ -139,7 +139,7 @@ public class CompanyController {
         }
     }
 
-    @DeleteMapping(value = "/api/v1.0/market/company/delete/{companycode}", produces = {"application/json"})
+    @DeleteMapping(path = "/api/v1.0/market/company/delete/{companycode}", produces = {"application/json"})
     public ResponseEntity<CompanyResponse> deleteCompanyV1(@RequestHeader Map<String,String> requestHeaders, @PathVariable("companycode") final String companyCode, Error error) {
 
         CompanyResponse response = null;
@@ -407,6 +407,7 @@ public class CompanyController {
 
                 if (companyCode != null) {
                     responsedata = searchCompanyService.processRequest(companyCode,headers);
+                    return ResponseEntity.ok().headers(respHeaders).body(responsedata);
                 } else {
                     response = mapEmptyInvalidRequest(estkErrorList);
                     ResponseEntity.badRequest().headers(respHeaders).body(response);
@@ -422,12 +423,12 @@ public class CompanyController {
                 return ResponseEntity.badRequest().headers(respHeaders).body(errorMessage);
             }
 
-            return new ResponseEntity<>(responsedata, HttpStatus.OK);
-
-
         } catch (Exception e) {
             response = mapInternalServerException(e, estkErrorList);
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().headers(respHeaders).body(response);
+        }
+        finally {
+            logger.info(transactionLog.toString());
         }
 
 

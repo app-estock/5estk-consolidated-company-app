@@ -13,19 +13,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class SearchCompanyDaoImpl implements SearchCompanyDao {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    CompanyRepository companyRepository;
 
     @Override
     public CompanyDetails searchCompanyDetails(String companyCode) {
        CompanyDetails companyDetails;
 
        try{
-           companyDetails=jdbcTemplate.query(AppConstants.SEARCH_COMPANY_DETAILS,new CompanyDetailsMapper(),companyCode);
+           //companyDetails=jdbcTemplate.query(AppConstants.SEARCH_COMPANY_DETAILS,new CompanyDetailsMapper(),companyCode);
+           companyDetails=companyRepository.findCompanyByCompanyCode(companyCode);
 
        }
-       catch (IncorrectResultSizeDataAccessException e)
+       catch (Exception e)
        {
-           return null;
+            throw new RuntimeException(e);
        }
        return companyDetails;
     }
