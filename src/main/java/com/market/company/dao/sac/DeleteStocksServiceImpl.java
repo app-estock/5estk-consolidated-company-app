@@ -19,15 +19,13 @@ public class DeleteStocksServiceImpl implements DeleteStocksService {
 
     private static final Logger logger = LoggerFactory.getLogger(DeleteStocksServiceImpl.class);
     private TransactionLog transactionLog;
-    @Value("${HOSTNAME:localhost}")
-    private String hostname;
-    @Value("${PORT:8081}")
-    private String port;
+    @Value("${EXT_CALL_ENDPOINT : http://localhost:8081/StockV1}")
+    private String externalEndpoint;
     @Override
     public boolean deleteStockService(String companycode, Headers headers) throws DeleteStockServiceException {
         transactionLog = new TransactionLog("DeleteCompanyV1", "deleteCompanyV1", "extCall");
         Map<String, String> extendedProperties = new HashMap<>();
-        String updateStockServiceV1Endpoint="http://"+hostname+":"+port+"/StockV1/delete/"+companycode;
+        String updateStockServiceV1Endpoint=externalEndpoint+"/delete/"+companycode;
         //region transaction log population
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
